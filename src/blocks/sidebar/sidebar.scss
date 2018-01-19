@@ -1,0 +1,33 @@
+.logo {
+	padding: 25px 10px;
+}
+.sidebar {
+	background-color: #FFF;
+	height: calc(100vh - 55px);
+	display: flex;
+    flex-direction: column;
+    padding: 5px 0 15px;
+	&-menu {
+		border-top: 2px solid #f6f6f6;
+		&__item {
+			border-bottom: 2px solid #f6f6f6;
+		}
+		&__link {
+			padding: 1rem 1rem;
+    		font-size: 16px;
+    		&.active {
+    			background: linear-gradient(-50deg, #2b517a, #99b3cd);
+    			color: #fff;
+    			font-weight: bold;
+    		}
+		}
+	}
+	&-options {
+		margin-top: auto;
+		&__item {
+			margin: 1rem auto 0;
+			display: block;
+		}
+	}
+	
+}
