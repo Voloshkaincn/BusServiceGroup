@@ -9,7 +9,7 @@ del = require('del'),
 imagemin     = require('gulp-imagemin'),
 pngquant     = require('imagemin-pngquant'),
 cache        = require('gulp-cache'),
-autoprefixer = require('gulp-autoprefixer');
+autoprefixer = require('gulp-autoprefixer'),
 includer     = require("gulp-x-includer");
 
 //======all tasks=====
@@ -50,7 +50,7 @@ gulp.task('libs-css', ['libs-sass'], function() {
 		.pipe(gulp.dest('dev/css'))
 });
 gulp.task('sass', function(){
-    return gulp.src(['src/sass/**/*.scss', 'src/blocks/**/*.scss'])
+    return gulp.src(['src/sass/**/*.scss', '!src/sass/**/_*.scss' ,'src/blocks/**/*.scss' ])
     	.pipe(concat('main.scss'))
         .pipe(sass())
         .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
@@ -73,7 +73,10 @@ gulp.task('browser-sync', function() {
     });
 });
 //fonts
-
+gulp.task('fonts', function() {
+	gulp.src(['src/fonts/**/*'])
+	.pipe(gulp.dest('dev/fonts'));
+});
 //images
 gulp.task('img', function() {
 	gulp.src(['src/img/**/*', 'src/block/assets/**/*'])
@@ -92,17 +95,17 @@ gulp.task("include", function(){
     .pipe(includer())
     .pipe(gulp.dest("dev/"));
 });
-
 //default task. call command - gulp
 gulp.task('default', ['watch']);
 
-gulp.task('watch', ['browser-sync', 'libs-css', 'css',  'libs-js', 'js', 'include', 'img'], function() {
+gulp.task('watch', ['browser-sync', 'libs-css', 'css',  'libs-js', 'js', 'include', 'img', 'fonts'], function() {
 	gulp.watch(['src/sass/**/*.scss', 'src/blocks/**/*.scss'], ['css']);
 	gulp.watch('src/css/libs/**/*.css', ['libs-css']);
 	gulp.watch('src/js/libs/**/*.js', ['libs-js']);
-	gulp.watch(['src/js/**/*.js'], ['js']);
+	gulp.watch(['src/js/**/*.js', 'src/blocks/**/*.js'], ['js']);
 	gulp.watch(['src/**/*.html'], ['include']);
 	gulp.watch(['src/img/**/*'], ['img']);
+	gulp.watch(['src/fonts/**/*'], ['fonts']);
 	gulp.watch('dev/**/*', browserSync.reload);
 });
 

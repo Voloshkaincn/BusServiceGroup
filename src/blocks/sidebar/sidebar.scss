@@ -1,12 +1,17 @@
 .logo {
 	padding: 25px 10px;
+	img {
+		max-width: 100%;
+	}
 }
 .sidebar {
 	background-color: #FFF;
-	height: calc(100vh - 55px);
 	display: flex;
     flex-direction: column;
     padding: 5px 0 15px;
+    box-shadow: 3px 7px 8px 3px rgba(162, 205, 241, 0.35);
+    transform: translateX(0);
+    transition: all 0.3s ease;
 	&-menu {
 		border-top: 2px solid #f6f6f6;
 		&__item {
@@ -20,6 +25,10 @@
     			color: #fff;
     			font-weight: bold;
     		}
+    		span {
+    			margin-right: 20px;
+    			color: #ccc
+    		}
 		}
 	}
 	&-options {
@@ -28,6 +37,36 @@
 			margin: 1rem auto 0;
 			display: block;
 		}
+	}
+	&-control {
+	    padding: 0;
+	    position: absolute;
+	    right: -10px;
+	    top: -10px;
+	    z-index: 9;
+	    color: #000;
+	    border: 2px solid;
+	    border-radius: 50%;
+	    transition: all 0.2s ease;
+	    &:before {
+	    	content: '<';
+	    	display: block;
+	    	font-size: 16px;
+	    	width: 20px;
+	    	height: 20px;
+	    	transform: (rotate(0deg)); 
+
+	    }
+	    &.close {
+	    	right: -30px;
+	    	 &:before {
+		    	transform: (rotate(180deg)); 
+		    }
+	    }
+	}
+	&.hide {
+		transform: translateX(-100%);
+		box-shadow: none;
 	}
 	
 }
